@@ -177,11 +177,39 @@ dengan, `food_recommendations('eggless coffee cupcakes')`
 
 ### Collaborative Filtering
 
-Collaborative Filtering secara aktif menggunakan transaksi suatu produk atau item sebagai dasar untuk memahami perilaku dan kebiasaan pengguna. Tujuannya adalah untuk merekomendasikan item yang disukai oleh pengguna berdasarkan kesamaan preferensi dengan pengguna lain yang memiliki riwayat interaksi serupa dengan item atau produk. Collaborative Filtering umumnya terdiri dari dua metode, salah satunya adalah User-Based Collaborative Filtering yang akan digunakan dalam proyek ini. Dalam User-Based Collaborative Filtering, kesamaan atau similarity antar pengguna diukur berdasarkan riwayat interaksi mereka dengan item atau produk, di mana model mempelajari pola preferensi pengguna terhadap item berdasarkan kesamaan preferensi dengan pengguna lain.
+Collaborative Filtering menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. Dalam proyek ini, kita akan menggunakan metode User-Based Collaborative Filtering. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik embedding. Model ini akan digunakan dalam sistem rekomendasi dengan menggunakan Binary Crossentropy, SGD (Stochastic Gradient Descent) sebagai optimizer, dan RMSE sebagai metrik evaluasi.
 
-Sebelum membagi data menjadi data training dan testing, kita akan melakukan pengacakan menggunakan metode sample. Setelah data terbagi menjadi data train dan test dengan feature independen (x) dan dependen (y) terpisah, kita akan membangun class RecommendationNet untuk memprediksi skor kecocokan antara pengguna dan restoran menggunakan teknik embedding. Model ini akan digunakan dalam sistem rekomendasi dan menggunakan Binary Crossentropy sebagai metode perhitungan loss function, SGD (Stochastic Gradient Descent) sebagai optimizer, serta root mean squared error (RMSE) sebagai metrik evaluasi.
+Setelah pelatihan model selesai, model akan digunakan dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan sesuai preferensi pengguna. Proses ini diuji pada pengguna dengan data input yang mencakup preferensi makanan atau item lainnya yang disukai. Dengan menggunakan Collaborative Filtering, rekomendasi makanan disesuaikan dengan preferensi pengguna lain yang memiliki riwayat interaksi serupa. Hal ini memungkinkan sistem merekomendasikan makanan dengan kesamaan karakteristik atau preferensi dengan makanan yang disukai sebelumnya oleh pengguna.
 
-Setelah proses pelatihan model selesai, kita akan menggunakan model yang telah dibuat sebelumnya dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan yang sesuai dengan preferensi pengguna. Proses ini akan diuji pada salah satu pengguna dengan memberikan data input yang mencakup preferensi makanan atau item lainnya yang disukai atau telah diakses sebelumnya oleh pengguna tersebut. Dengan menggunakan model Collaborative Filtering, rekomendasi makanan akan disesuaikan dengan preferensi yang mirip dari pengguna lain yang memiliki riwayat interaksi serupa dengan makanan yang dipilih oleh pengguna yang diuji. Hal ini memungkinkan sistem untuk merekomendasikan makanan yang memiliki kesamaan karakteristik atau preferensi dengan makanan yang telah disukai atau diakses sebelumnya oleh pengguna tersebut.
+Showing recommendations for users: 67
+===========================
+Food with high ratings from user
+--------------------------------
+
+| No. | Name                                | C_Type            | Veg_Non                  |
+|-----|-------------------------------------|-------------------|--------------------------|
+| 1   | Almond and Raw Banana Galawat       | Indian            | Vegetarian               |
+| 2   | Meat Lovers Pizza                   | Italian           | Non-Vegetarian           |
+| 3   | Thai Prawn Curry & Baked Rice       | Thai              | Vegetarian               |
+| 4   | Banana and Chia Tea Cake            | Dessert           | Vegetarian               |
+| 5   | Steam Bunny Chicken Bao             | Japanese          | Non-Vegetarian           |
+
+--------------------------------
+Top 10 food recommendation
+--------------------------------
+
+| No. | Name                                                             | C_Type           | Veg_Non                  |
+|-----|------------------------------------------------------------------|------------------|---------------------------|
+| 1   | Tandoori Chicken                                                 | Indian           | Non-Vegetarian           |
+| 2   | Chettinadu Chicken                                               | Indian           | Non-Vegetarian           |
+| 3   | Black Rice                                                        | Healthy Food     | Vegetarian               |
+| 4   | Sunga Pork                                                        | Japanese         | Vegetarian               |
+| 5   | Miso-Butter Roast Chicken With Acorn Squash Panzanella            | Japanese         | Non-Vegetarian           |
+| 6   | Spicy Korean Steak                                                | Korean           | Non-Vegetarian           |
+| 7   | Quinoa Bowl and Berries                                           | Healthy Food     | Vegetarian               |
+| 8   | Ricotta Gnocchi with Asparagus, Peas, and Morels                   | Italian          | Vegetarian               |
+| 9   | Grilled Sweet Prawn                                               | Chinese          | Non-Vegetarian           |
+| 10  | Pho Tai Rare Beef                                                 | Vietnamese       | Non-Vegetarian           |
 
 
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
