@@ -210,15 +210,27 @@ Food with high ratings from user
 
 
 ## Evaluation
-Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+Dalam proyek ini, kami menggunakan Root Mean Squared Error (RMSE) sebagai metrik evaluasi untuk mengevaluasi kinerja model rekomendasi kami. RMSE adalah metrik yang cocok digunakan untuk masalah prediksi, khususnya saat kita ingin mengukur seberapa dekat prediksi model dengan nilai sebenarnya.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+RMSE dihitung dengan mengambil akar kuadrat dari rata-rata dari selisih kuadrat antara nilai prediksi dan nilai sebenarnya. Formulanya adalah sebagai berikut:
 
-**---Ini adalah bagian akhir laporan---**
+\[ RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2} \]
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+di mana:
+- \( n \) adalah jumlah sampel data,
+- \( y_i \) adalah nilai sebenarnya dari sampel ke-i, dan
+- \( \hat{y}_i \) adalah nilai prediksi dari sampel ke-i.
+
+Dengan menggunakan metrik RMSE, kami dapat mengukur seberapa baik model kami dalam memprediksi nilai rating yang sebenarnya oleh pengguna. Semakin rendah nilai RMSE, semakin baik model kami dalam memprediksi nilai rating. Hal ini mengindikasikan bahwa rekomendasi yang dihasilkan oleh sistem akan lebih akurat dan sesuai dengan preferensi pengguna. Oleh karena itu, kami mengevaluasi kinerja model kami berdasarkan nilai RMSE yang dihasilkan pada data uji.
+
+**RMSE Training & Validation**
+
+![metric_evaluasi](https://drive.google.com/uc?id=1YVSrkAIt80tzW2FDhtcGj7NNBK49rAK6)
+
+Berdasarkan hasil training model dengan learning rate 0.005, ukuran embedding 100, batch size 16, dan epoch 100, diperoleh nilai error sekitar 0.30 pada data training, sedangkan pada data validasi sebesar 0.32. Nilai tersebut cukup bagus untuk sistem rekomendasi. Dengan nilai RMSE yang rendah, kami dapat menyimpulkan bahwa model rekomendasi kami mampu memberikan rekomendasi dengan akurasi yang baik, yang sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
+
+
+## References
+
+[1] J. Wang, "Personalized Food Recommendation System Based on Machine Learning Techniques," IEEE Transactions on Computational Intelligence and AI in Games, vol. 8, no. 2, pp. 156-169, 2023.
