@@ -70,12 +70,12 @@ Perhatikan, untuk fitur Food_ID pada foods memiliki range 1-400 dengan jumlah ba
 
 Statistika deskriptif untuk fitur non_numerik:
 
-| Attribute | Count | Unique | Top             | Frequency |
-|-----------|-------|--------|-----------------|-----------|
-| Name      | 400   | 400    | summer squash salad | 1       |
-| C_Type    | 400   | 16     | Indian          | 88        |
-| Veg_Non   | 400   | 2      | veg             | 238       |
-| Describe  | 400   | 397    | Variety of rice | 2         |
+| Attribute | Count | Unique | Top                 | Frequency |
+|-----------|-------|--------|---------------------|-----------|
+| Name      | 400   | 400    | summer squash salad | 1         |
+| C_Type    | 400   | 16     | Indian              | 88        |
+| Veg_Non   | 400   | 2      | veg                 | 238       |
+| Describe  | 400   | 397    | Variety of rice     | 2         |
 
 - Fitur Name: Terdiri dari 400 nilai unik
 - Fitur C_Type: Terdiri dari 16 nilai unik (Top: Indian)
@@ -160,8 +160,8 @@ Content-Based Recommendation memanfaatkan informasi dari beberapa item atau data
 
 Pada tahap model, kami menggunakan CountVectorizer untuk mengubah data teks menjadi representasi numerik dengan menghitung frekuensi kemunculan kata-kata di setiap dokumen. Bobot kata-kata dihitung berdasarkan frekuensi kemunculannya di setiap dokumen. Selanjutnya, kami mendefinisikan fungsi untuk sistem rekomendasi makanan dan menggunakan representasi numerik dari CountVectorizer serta menghitung kedekatan fitur menggunakan Cosine Similarity. Proses ini akan diuji pada salah satu makanan untuk menghasilkan rekomendasi yang sesuai.
 
-| Food_ID | Name                      | C_Type  | Veg_Non | Describe                                  | soup                                             |
-|---------|---------------------------|---------|---------|-------------------------------------------|--------------------------------------------------|
+| Food_ID | Name                      | C_Type  | Veg_Non | Describe                                  | soup                                               |
+|---------|---------------------------|---------|---------|-------------------------------------------|----------------------------------------------------|
 | 229     | eggless coffee cupcakes   | dessert | veg     | maida flour baking powder sugar cocoa powd... | dessert veg maida flour baking powder sugar... |
 
 dengan, `food_recommendations('eggless coffee cupcakes')`
@@ -177,14 +177,13 @@ dengan, `food_recommendations('eggless coffee cupcakes')`
 
 ### Collaborative Filtering
 
-Collaborative Filtering menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. Dalam proyek ini, kita akan menggunakan metode User-Based Collaborative Filtering. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik embedding. Model ini akan digunakan dalam sistem rekomendasi dengan menggunakan Binary Crossentropy, SGD (Stochastic Gradient Descent) sebagai optimizer, dan RMSE sebagai metrik evaluasi.
+Collaborative Filtering menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. **Collaborative Filtering, seperti yang digunakan dalam proyek ini, menawarkan rekomendasi personalisasi tinggi berdasarkan preferensi pengguna sebelumnya, tetapi dapat mengalami kesulitan saat menghadapi pengguna atau item baru dan cenderung merekomendasikan item yang mirip secara berulang**. Dalam proyek ini, kita akan menggunakan metode User-Based Collaborative Filtering. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik embedding. Model ini akan digunakan dalam sistem rekomendasi dengan menggunakan Binary Crossentropy, SGD (Stochastic Gradient Descent) sebagai optimizer, dan RMSE sebagai metrik evaluasi.
 
 Setelah pelatihan model selesai, model akan digunakan dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan sesuai preferensi pengguna. Proses ini diuji pada pengguna dengan data input yang mencakup preferensi makanan atau item lainnya yang disukai. Dengan menggunakan Collaborative Filtering, rekomendasi makanan disesuaikan dengan preferensi pengguna lain yang memiliki riwayat interaksi serupa. Hal ini memungkinkan sistem merekomendasikan makanan dengan kesamaan karakteristik atau preferensi dengan makanan yang disukai sebelumnya oleh pengguna.
 
-Showing recommendations for users: 67
-===========================
+**Showing recommendations for users: 67**
+
 Food with high ratings from user
---------------------------------
 
 | No. | Name                                | C_Type            | Veg_Non                  |
 |-----|-------------------------------------|-------------------|--------------------------|
@@ -194,29 +193,21 @@ Food with high ratings from user
 | 4   | Banana and Chia Tea Cake            | Dessert           | Vegetarian               |
 | 5   | Steam Bunny Chicken Bao             | Japanese          | Non-Vegetarian           |
 
---------------------------------
-Top 10 food recommendation
---------------------------------
+**Top 10 food recommendation**
 
 | No. | Name                                                             | C_Type           | Veg_Non                  |
-|-----|------------------------------------------------------------------|------------------|---------------------------|
+|-----|------------------------------------------------------------------|------------------|--------------------------|
 | 1   | Tandoori Chicken                                                 | Indian           | Non-Vegetarian           |
 | 2   | Chettinadu Chicken                                               | Indian           | Non-Vegetarian           |
-| 3   | Black Rice                                                        | Healthy Food     | Vegetarian               |
-| 4   | Sunga Pork                                                        | Japanese         | Vegetarian               |
-| 5   | Miso-Butter Roast Chicken With Acorn Squash Panzanella            | Japanese         | Non-Vegetarian           |
-| 6   | Spicy Korean Steak                                                | Korean           | Non-Vegetarian           |
-| 7   | Quinoa Bowl and Berries                                           | Healthy Food     | Vegetarian               |
-| 8   | Ricotta Gnocchi with Asparagus, Peas, and Morels                   | Italian          | Vegetarian               |
-| 9   | Grilled Sweet Prawn                                               | Chinese          | Non-Vegetarian           |
-| 10  | Pho Tai Rare Beef                                                 | Vietnamese       | Non-Vegetarian           |
+| 3   | Black Rice                                                       | Healthy Food     | Vegetarian               |
+| 4   | Sunga Pork                                                       | Japanese         | Vegetarian               |
+| 5   | Miso-Butter Roast Chicken With Acorn Squash Panzanella           | Japanese         | Non-Vegetarian           |
+| 6   | Spicy Korean Steak                                               | Korean           | Non-Vegetarian           |
+| 7   | Quinoa Bowl and Berries                                          | Healthy Food     | Vegetarian               |
+| 8   | Ricotta Gnocchi with Asparagus, Peas, and Morels                 | Italian          | Vegetarian               |
+| 9   | Grilled Sweet Prawn                                              | Chinese          | Non-Vegetarian           |
+| 10  | Pho Tai Rare Beef                                                | Vietnamese       | Non-Vegetarian           |
 
-
-Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menyajikan dua solusi rekomendasi dengan algoritma yang berbeda.
-- Menjelaskan kelebihan dan kekurangan dari solusi/pendekatan yang dipilih.
 
 ## Evaluation
 Pada bagian ini Anda perlu menyebutkan metrik evaluasi yang digunakan. Kemudian, jelaskan hasil proyek berdasarkan metrik evaluasi tersebut.
