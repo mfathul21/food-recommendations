@@ -74,19 +74,19 @@ Statistika deskriptif untuk fitur non_numerik:
 - Fitur Veg_Non: Terdiri dari 2 nilai unik (Top: veg)
 - Fitur Describe: Terdiri dari 397 nilai unik (Top: riety of rice)
 
-**Countplot of C_Type Group**
+![c_type](https://github.com/mfathul21/food-recomendations/blob/main/assets/c_type.jpg?raw=true)
 
-![c_type](https://drive.google.com/uc?id=1q_3cHovCGba3v_lP6v4DKQrQqSOOcmtQ)
+Gambar 1. Distribution of Cuisine Type
 
-Tipe masakan indian, healthy food, dan dessert merupakan top 3 untuk tipe masakan pada data. Selain itu, perhatikanlah terdapat nilai yang *double* yaitu Korean sehingga perlu ditinjau kembali mengapa demikian pada tahap *Data Preparation*.
+Pada Gambar 1, tipe masakan indian, healthy food, dan dessert merupakan *top* 3 untuk tipe masakan pada data. Selain itu, perhatikanlah terdapat nilai yang *double* yaitu Korean sehingga perlu ditinjau kembali mengapa demikian pada tahap *Data Preparation*.
 
-**Countplot of Veg_Non**
+![veg_non](https://github.com/mfathul21/food-recomendations/blob/main/assets/veg_non.jpg?raw=true)
 
-![veg_non](https://drive.google.com/uc?id=1FSp3vXibtCVE0h20fSv3f7O2DPZktdgr)
+Gambar 2. Distribution of Vegetarian / Not
 
-Berdasarkan data, mayoritas makanan dari data yang digunakan merupakan masakan vegetarian, yaitu makanan yang memenuhi standar vegetarian dengan tidak memasukkan daging dan produk-produk yang berasal dari hewan.
+Berdasarkan Gambar 2, mayoritas makanan dari data yang digunakan merupakan masakan vegetarian, yaitu makanan yang memenuhi standar vegetarian dengan tidak memasukkan daging dan produk-produk yang berasal dari hewan.
 
-**ratings datasets**
+**Ratings Dataset**
 
 | Statistic | User_ID   | Food_ID   | Rating    |
 |-----------|-----------|-----------|-----------|
@@ -101,11 +101,11 @@ Berdasarkan data, mayoritas makanan dari data yang digunakan merupakan masakan v
 
 Dalam data, terdapat 511 baris data untuk fitur User_ID dan Food_ID, namun rentang nilai untuk masing-masing hanya mencakup 1 hingga 100 dan 1 hingga 309. Hal ini mengindikasikan bahwa beberapa pelanggan memberikan rating lebih dari sekali, begitu pula dengan makanan yang mendapatkan rating lebih dari sekali. Selain itu, fitur Rating menampilkan skala nilai dari 1 (terendah) hingga 10 (tertinggi).
 
-**Countplot of Rating**
+![ratings](https://github.com/mfathul21/food-recomendations/blob/main/assets/ratings.jpg?raw=true)
 
-![ratings](https://drive.google.com/uc?id=15QI3Q60L3hQBKJqAlUOkKsPVVJxXgu5e)
+Gambar 3. Distribution of Ratings
 
-Persebaran rating yang diberikan oleh pengguna cukup merata untuk setiap nilai rating dalam rentang 1 hingga 10.
+Berdasarkan Gambar 3, persebaran rating yang diberikan oleh pengguna cukup merata untuk setiap nilai rating dalam rentang 1 hingga 10.
 
 ## Data Preparation
 **Laporan Data Preparation**
@@ -217,9 +217,9 @@ di mana:
 
 Dengan menggunakan metrik RMSE, kemampuan model dalam memprediksi nilai rating yang sebenarnya oleh pengguna dapat diukur. Semakin rendah nilai RMSE, semakin baik model dalam memprediksi nilai rating, yang mengindikasikan bahwa rekomendasi yang dihasilkan oleh sistem akan lebih akurat dan sesuai dengan preferensi pengguna. Oleh karena itu, kinerja model dievaluasi berdasarkan nilai RMSE yang dihasilkan pada data uji.
 
-**RMSE Training & Validation**
+![metric_evaluasi](https://github.com/mfathul21/food-recomendations/blob/main/assets/model_metric.jpg?raw=true)
 
-![metric_evaluasi](https://drive.google.com/uc?id=1YVSrkAIt80tzW2FDhtcGj7NNBK49rAK6)
+Gambar 4. Plot of RMSE Training & Validation
 
 Berdasarkan hasil training model dengan learning rate 0.005, ukuran embedding 100, batch size 16, dan epoch 100, diperoleh nilai error sekitar 0.30 pada data training, sedangkan pada data validasi sebesar 0.32. Nilai tersebut dianggap cukup bagus untuk sistem rekomendasi. Dengan nilai RMSE yang rendah, dapat disimpulkan bahwa model rekomendasi mampu memberikan rekomendasi dengan akurasi yang baik, sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
 
