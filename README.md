@@ -215,12 +215,15 @@ Dalam proyek ini, kami menggunakan Root Mean Squared Error (RMSE) sebagai metrik
 
 RMSE dihitung dengan mengambil akar kuadrat dari rata-rata dari selisih kuadrat antara nilai prediksi dan nilai sebenarnya. Formulanya adalah sebagai berikut:
 
-\[ RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2} \]
+$$
+\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+$$
 
 di mana:
 - \( n \) adalah jumlah sampel data,
 - \( y_i \) adalah nilai sebenarnya dari sampel ke-i, dan
 - \( \hat{y}_i \) adalah nilai prediksi dari sampel ke-i.
+
 
 Dengan menggunakan metrik RMSE, kami dapat mengukur seberapa baik model kami dalam memprediksi nilai rating yang sebenarnya oleh pengguna. Semakin rendah nilai RMSE, semakin baik model kami dalam memprediksi nilai rating. Hal ini mengindikasikan bahwa rekomendasi yang dihasilkan oleh sistem akan lebih akurat dan sesuai dengan preferensi pengguna. Oleh karena itu, kami mengevaluasi kinerja model kami berdasarkan nilai RMSE yang dihasilkan pada data uji.
 
