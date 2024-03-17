@@ -49,30 +49,65 @@ Variabel-variabel pada kedua datasets tersebut adalah sebagai berikut:
 - Describe: Deskripsi singkat tentang makanan, termasuk bahan utama, cita rasa, atau karakteristik lainnya.
 - Rating: Nilai rating yang diberikan oleh pengguna untuk makanan tertentu, menunjukkan seberapa disukainya makanan tersebut oleh pengguna. Dengan nilai dalam rentang 1 hingga 10, di mana nilai yang lebih tinggi menunjukkan tingkat kepuasan yang lebih tinggi.
 
-+-----------+----------+--------+------------------------------------------------+
-| Food_ID   | User_ID  | Rating |                                               |
-+-----------+----------+--------+------------------------------------------------+
-| count     | 400.000  | 400.000| 400.000                                        |
-| mean      | 200.500  | 200.500| 200.500                                        |
-| std       | 115.614  | 115.614| 115.614                                        |
-| min       | 1.000    | 1.000  | 1.000                                          |
-| 25%       | 100.750  | 100.750| 100.750                                        |
-| 50%       | 200.500  | 200.500| 200.500                                        |
-| 75%       | 300.250  | 300.250| 300.250                                        |
-| max       | 400.000  | 400.000| 400.000                                        |
-+-----------+----------+--------+------------------------------------------------+
+### Univariate Exploratory Data Analysis
 
-+-----------+-----------+---------+------------------------------------------------+
-| Name      | C_Type    | Veg_Non | Describe                                       |
-+-----------+-----------+---------+------------------------------------------------+
-| count     | 400       | 400     | 400                                            |
-| unique    | 400       | 16      | 2                                              |
-| top       | summer    | Indian  | veg                                            |
-|           | squash    |         | riety of rice.                                 |
-|           | salad     |         |                                                |
-| freq      | 1         | 88      | 238                                            |
-+-----------+-----------+---------+------------------------------------------------+
+**Food Dataset**
 
+Statistika deskriptif untuk fitur numerik:
+
+| Statistic | Food_ID |
+|-----------|---------|
+| count     | 400.000 |
+| mean      | 200.500 |
+| std       | 115.614 |
+| min       | 1.000   |
+| 25%       | 100.750 |
+| 50%       | 200.500 |
+| 75%       | 300.250 |
+| max       | 400.000 |
+
+Perhatikan, untuk fitur Food_ID pada foods memiliki range 1-400 dengan jumlah baris data yaitu 400 menunjukkan nilai unik pada fitur tersebut juga 400.
+
+Statistika deskriptif untuk fitur non_numerik:
+
+| Attribute | Count | Unique | Top             | Frequency |
+|-----------|-------|--------|-----------------|-----------|
+| Name      | 400   | 400    | summer squash salad | 1       |
+| C_Type    | 400   | 16     | Indian          | 88        |
+| Veg_Non   | 400   | 2      | veg             | 238       |
+| Describe  | 400   | 397    | Variety of rice | 2         |
+
+- Fitur Name: Terdiri dari 400 nilai unik
+- Fitur C_Type: Terdiri dari 16 nilai unik (Top: Indian)
+- Fitur Veg_Non: Terdiri dari 2 nilai unik (Top: veg)
+- Fitur Describe: Terdiri dari 397 nilai unik (Top: riety of rice)
+
+![c_type](https://drive.google.com/uc?id=1q_3cHovCGba3v_lP6v4DKQrQqSOOcmtQ)
+
+Tipe masakan indian, healthy food, dan dessert merupakan top 3 untuk tipe masakan pada data. Selain itu, perhatikanlah terdapat nilai yang double yaitu Korean sehingga perlu ditinjau kembali mengapa demikian pada tahap Data Preparation.
+
+![veg_non](https://drive.google.com/uc?id=1FSp3vXibtCVE0h20fSv3f7O2DPZktdgr)
+
+Berdasarkan data, mayoritas makanan dari data yang digunakan merupakan masakan vegetarian, yaitu makanan yang memenuhi standar vegetarian dengan tidak memasukkan daging dan produk-produk yang berasal dari hewan.
+
+**ratings datasets**
+
+| Statistic | User_ID   | Food_ID   | Rating    |
+|-----------|-----------|-----------|-----------|
+| count     | 511.000   | 511.000   | 511.000   |
+| mean      | 49.068    | 125.311   | 5.438     |
+| std       | 28.739    | 91.293    | 2.866     |
+| min       | 1.000     | 1.000     | 1.000     |
+| 25%       | 25.000    | 45.500    | 3.000     |
+| 50%       | 49.000    | 111.000   | 5.000     |
+| 75%       | 72.000    | 204.000   | 8.000     |
+| max       | 100.000   | 309.000   | 10.000    |
+
+Dalam data, terdapat 511 baris data untuk fitur User_ID dan Food_ID, namun rentang nilai untuk masing-masing hanya mencakup 1 hingga 100 dan 1 hingga 309. Hal ini mengindikasikan bahwa beberapa pelanggan memberikan rating lebih dari sekali, begitu pula dengan makanan yang mendapatkan rating lebih dari sekali. Selain itu, fitur Rating menampilkan skala nilai dari 1 (terendah) hingga 10 (tertinggi).
+
+![ratings](https://drive.google.com/uc?id=15QI3Q60L3hQBKJqAlUOkKsPVVJxXgu5e)
+
+Persebaran rating yang diberikan oleh pengguna cukup merata untuk setiap nilai rating dalam rentang 1 hingga 10.
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
