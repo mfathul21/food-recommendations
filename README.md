@@ -8,8 +8,6 @@ Sistem rekomendasi makanan bertujuan untuk memperbaiki pengalaman pelanggan deng
 
 Selain meningkatkan kepuasan pelanggan, implementasi sistem rekomendasi makanan juga dapat membantu pemilik usaha makanan untuk meningkatkan penjualan dengan mengarahkan pelanggan kepada menu-menu yang lebih mungkin mereka sukai. Dengan memanfaatkan teknologi ini, diharapkan dapat menciptakan pengalaman makan yang lebih menyenangkan, meningkatkan loyalitas pelanggan, dan pada akhirnya memperkuat posisi kompetitif dalam industri makanan yang kompetitif ini.
 
-  Format Referensi: [Judul Referensi](https://scholar.google.com/) 
-
 ## Business Understanding
 
 ### Problem Statements
@@ -24,7 +22,7 @@ Berdasarkan kondisi yang telah diuraikan sebelumnya, perusahaan akan mengembangk
 Untuk menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
 
 - Menghasilkan sejumlah rekomendasi makanan yang dipersonalisasi untuk pelanggan dengan teknik content-based filtering.
-- Menghasilkan sejumlah rekomendasi makanan yang sesuai dengan preferensi pelanggan dan belum pernah dikunjungi sebelumnya dengan teknik collaborative filtering.
+- Menghasilkan sejumlah rekomendasi makanan yang sesuai dengan preferensi pelanggan dan belum pernah dikunjungi sebelumnya dengan teknik collaborative filtering dengan tingkat kesalahan yang rendah (RMSE kurang dari 0.35).
 
 ### Solution statements
 
@@ -220,9 +218,9 @@ $$
 $$
 
 di mana:
-- \( n \) adalah jumlah sampel data,
-- \( y_i \) adalah nilai sebenarnya dari sampel ke-i, dan
-- \( \hat{y}_i \) adalah nilai prediksi dari sampel ke-i.
+- $n$ adalah jumlah sampel data,
+- $y_i$ adalah nilai sebenarnya dari sampel ke-i, dan
+- $\hat{y}_i$ adalah nilai prediksi dari sampel ke-i.
 
 
 Dengan menggunakan metrik RMSE, kami dapat mengukur seberapa baik model kami dalam memprediksi nilai rating yang sebenarnya oleh pengguna. Semakin rendah nilai RMSE, semakin baik model kami dalam memprediksi nilai rating. Hal ini mengindikasikan bahwa rekomendasi yang dihasilkan oleh sistem akan lebih akurat dan sesuai dengan preferensi pengguna. Oleh karena itu, kami mengevaluasi kinerja model kami berdasarkan nilai RMSE yang dihasilkan pada data uji.
