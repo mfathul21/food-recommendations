@@ -26,7 +26,19 @@ Untuk menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan ata
 
 ### Solution statements
 
-Dalam proyek ini, tujuan utamanya adalah mengembangkan sebuah sistem rekomendasi makanan yang dipersonalisasi untuk pelanggan. Teknik content-based filtering akan digunakan untuk menghasilkan rekomendasi yang disesuaikan dengan preferensi pelanggan berdasarkan data pelanggan yang ada. Selain itu, data rating yang dimiliki akan digunakan untuk merekomendasikan makanan baru yang mungkin disukai oleh pelanggan, namun belum pernah dipesan sebelumnya. Salah satu fokus utamanya adalah memastikan tingkat kesalahan model rekomendasi (RMSE) kurang dari 0.35, sehingga rekomendasi yang dihasilkan dapat menjadi panduan yang berguna bagi pelanggan dalam memilih makanan yang sesuai dengan preferensinya. Dengan menggabungkan kedua teknik filtering ini, pengalaman rekomendasi yang lebih baik dan terpersonalisasi dapat diberikan kepada pelanggan.
+Untuk mencapai tujuan yang telah disebutkan sebelumnya, berikut adalah langkah-langkah yang akan diambil:
+
+1. **Pengembangan Sistem Rekomendasi dengan Teknik Content-Based Filtering:**
+   - Menerapkan *CountVectorizer* untuk mengubah data teks deskripsi makanan menjadi representasi numerik.
+   - Menghitung kemiripan antara makanan berdasarkan deskripsi menggunakan *Cosine Similarity*.
+   - Menghasilkan rekomendasi makanan yang dipersonalisasi untuk setiap pelanggan berdasarkan preferensi mereka.
+
+2. **Pengembangan Sistem Rekomendasi dengan Teknik Collaborative Filtering:**
+   - Menggunakan *User-Based Collaborative Filtering* untuk merekomendasikan makanan yang belum pernah dipesan oleh pelanggan.
+   - Melakukan pelatihan model menggunakan metode *embedding* dengan parameter *learning rate* 0.005, ukuran *embedding* 100, *batch size* 16, dan *epoch* 100.
+   - Mengevaluasi model dengan metrik RMSE untuk memastikan tingkat kesalahan rendah (kurang dari 0.35).
+
+Dengan mengimplementasikan kedua teknik rekomendasi ini, sistem rekomendasi yang dihasilkan akan memberikan rekomendasi makanan yang dipersonalisasi dan sesuai dengan preferensi pelanggan dengan akurasi yang baik.
 
 ## Data Understanding
 Data yang digunakan pada proyek kali ini adalah "Food Recomendation System" yang diunduh dari <a href="https://www.kaggle.com/datasets/schemersays/food-recommendation-system">Kaggle API</a>. Dataset ini merepresentasikan data yang berhubungan dengan sistem rekomendasi makanan. Dua dataset disertakan dalam file dataset ini. Pertama, termasuk dataset yang terkait dengan makanan, bahan, masakan yang terlibat. Kedua, termasuk dataset dari sistem rating untuk sistem rekomendasi.
