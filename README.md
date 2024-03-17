@@ -82,9 +82,13 @@ Statistika deskriptif untuk fitur non_numerik:
 - Fitur Veg_Non: Terdiri dari 2 nilai unik (Top: veg)
 - Fitur Describe: Terdiri dari 397 nilai unik (Top: riety of rice)
 
+**Countplot of C_Type Group**
+
 ![c_type](https://drive.google.com/uc?id=1q_3cHovCGba3v_lP6v4DKQrQqSOOcmtQ)
 
 Tipe masakan indian, healthy food, dan dessert merupakan top 3 untuk tipe masakan pada data. Selain itu, perhatikanlah terdapat nilai yang double yaitu Korean sehingga perlu ditinjau kembali mengapa demikian pada tahap Data Preparation.
+
+**Countplot of Veg_Non**
 
 ![veg_non](https://drive.google.com/uc?id=1FSp3vXibtCVE0h20fSv3f7O2DPZktdgr)
 
@@ -105,18 +109,81 @@ Berdasarkan data, mayoritas makanan dari data yang digunakan merupakan masakan v
 
 Dalam data, terdapat 511 baris data untuk fitur User_ID dan Food_ID, namun rentang nilai untuk masing-masing hanya mencakup 1 hingga 100 dan 1 hingga 309. Hal ini mengindikasikan bahwa beberapa pelanggan memberikan rating lebih dari sekali, begitu pula dengan makanan yang mendapatkan rating lebih dari sekali. Selain itu, fitur Rating menampilkan skala nilai dari 1 (terendah) hingga 10 (tertinggi).
 
+**Countplot of Rating**
+
 ![ratings](https://drive.google.com/uc?id=15QI3Q60L3hQBKJqAlUOkKsPVVJxXgu5e)
 
 Persebaran rating yang diberikan oleh pengguna cukup merata untuk setiap nilai rating dalam rentang 1 hingga 10.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+**Laporan Data Preparation**
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Dalam tahap Data Preparation, beberapa teknik dan langkah-langkah dilakukan untuk membersihkan dan mempersiapkan data sebelum digunakan untuk sistem rekomendasi. Berikut adalah langkah-langkah yang dilakukan beserta penjelasannya:
+
+1. **Membersihkan Data pada Kolom 'C_Type'**  
+   - Dilakukan penghapusan spasi ekstra dalam nilai kolom 'C_Type' menggunakan fungsi `apply` dan `lambda`.
+   - Langkah ini diperlukan untuk memastikan konsistensi data dan menghindari kesalahan dalam analisis berikutnya.
+
+2. **Membersihkan dan Normalisasi Teks pada Fitur 'C_Type', 'Veg_Non', dan 'Describe'**
+   - Setiap nilai dalam fitur 'C_Type', 'Veg_Non', dan 'Describe' dibersihkan dari karakter non-alphabet menggunakan regular expression.
+   - Selanjutnya, teks pada fitur tersebut dinormalisasi menjadi huruf kecil (lowercase) untuk konsistensi analisis.
+   - Langkah ini diperlukan karena data teks sering kali mengandung karakter non-alphabet atau berformat tidak konsisten, sehingga perlu dibersihkan dan dinormalisasi.
+
+3. **Handling Missing Values pada DataFrame 'foods'**
+   - Dilakukan pengecekan apakah terdapat nilai kosong (missing values) dalam DataFrame 'foods' menggunakan metode `.isna().any()`.
+   - Tidak ada nilai kosong yang ditemukan dalam DataFrame 'foods', sehingga tidak perlu dilakukan langkah khusus untuk menangani missing values.
+
+4. **Handling Duplicate Data pada DataFrame 'foods'**
+   - Pengecekan dilakukan untuk melihat apakah terdapat data ganda (duplicate data) dalam DataFrame 'foods' menggunakan metode `.duplicated().any()`.
+   - Tidak ada data ganda yang ditemukan dalam DataFrame 'foods', sehingga tidak perlu dilakukan langkah khusus untuk menangani duplicate data.
+
+5. **Handling Missing Values pada DataFrame 'ratings'**
+   - Dilakukan pengecekan apakah terdapat nilai kosong (missing values) dalam DataFrame 'ratings' menggunakan metode `.isna().any()`.
+   - Ditemukan nilai kosong pada DataFrame 'ratings', kemudian dilakukan penghapusan baris yang mengandung nilai kosong tersebut menggunakan metode `.dropna()`.
+   - Setelah itu, dilakukan pengecekan ulang untuk memastikan tidak ada lagi nilai kosong dalam DataFrame 'ratings'.
+
+6. **Handling Duplicate Data pada DataFrame 'ratings'**
+   - Pengecekan dilakukan untuk melihat apakah terdapat data ganda (duplicate data) dalam DataFrame 'ratings' menggunakan metode `.duplicated().any()`.
+   - Tidak ditemukan data ganda dalam DataFrame 'ratings', sehingga tidak perlu dilakukan langkah khusus untuk menangani duplicate data.
+
+7. **Konversi Tipe Data Kolom 'User_ID' dan 'Food_ID' pada DataFrame 'ratings'**
+   - Dilakukan konversi tipe data kolom 'User_ID' dan 'Food_ID' pada DataFrame 'ratings' menjadi tipe data integer menggunakan metode `.astype(int)`.
+   - Langkah ini diperlukan agar data pada kolom 'User_ID' dan 'Food_ID' dapat diproses dengan benar dalam analisis selanjutnya.
+
+Dengan melakukan langkah-langkah di atas, data telah dipersiapkan dengan baik dan siap untuk digunakan dalam tahap modelling. Langkah-langkah tersebut diperlukan untuk memastikan kualitas dan konsistensi data sebelum dilakukan pengembangan model.
 
 ## Modeling
+
+### Content Based Filtering
+
+Content-Based Recommendation memanfaatkan informasi dari beberapa item atau dataset untuk merekomendasikan item yang relevan kepada pengguna berdasarkan informasi yang telah digunakan sebelumnya. Tujuan dari rekomendasi berbasis konten adalah untuk memprediksi kesamaan antara sejumlah informasi yang diberikan oleh pengguna. **Content-Based Recommendation memiliki keunggulan dalam personalisasi rekomendasi berdasarkan preferensi pengguna namun memiliki keterbatasan dalam keragaman rekomendasi karena cenderung merekomendasikan item yang mirip dengan yang digunakan pengguna sebelumnya**.
+
+Pada tahap model, kami menggunakan CountVectorizer untuk mengubah data teks menjadi representasi numerik dengan menghitung frekuensi kemunculan kata-kata di setiap dokumen. Bobot kata-kata dihitung berdasarkan frekuensi kemunculannya di setiap dokumen. Selanjutnya, kami mendefinisikan fungsi untuk sistem rekomendasi makanan dan menggunakan representasi numerik dari CountVectorizer serta menghitung kedekatan fitur menggunakan Cosine Similarity. Proses ini akan diuji pada salah satu makanan untuk menghasilkan rekomendasi yang sesuai.
+
+| Food_ID | Name                      | C_Type  | Veg_Non | Describe                                  | soup                                             |
+|---------|---------------------------|---------|---------|-------------------------------------------|--------------------------------------------------|
+| 229     | eggless coffee cupcakes   | dessert | veg     | maida flour baking powder sugar cocoa powd... | dessert veg maida flour baking powder sugar... |
+
+dengan, `food_recommendations('eggless coffee cupcakes')`
+
+| No  | Name                           | C_Type   | Veg_Non |
+|-----|--------------------------------|----------|---------|
+| 0   | eggless vanilla cake           | dessert  | veg     |
+| 1   | chocolate fudge cookies        | dessert  | veg     |
+| 2   | microwave chocolate cake       | dessert  | veg     |
+| 3   | filter coffee                  | beverage | veg     |
+| 4   | double chocolate easter cookies| dessert  | veg     |
+
+
+### Collaborative Filtering
+
+Collaborative Filtering secara aktif menggunakan transaksi suatu produk atau item sebagai dasar untuk memahami perilaku dan kebiasaan pengguna. Tujuannya adalah untuk merekomendasikan item yang disukai oleh pengguna berdasarkan kesamaan preferensi dengan pengguna lain yang memiliki riwayat interaksi serupa dengan item atau produk. Collaborative Filtering umumnya terdiri dari dua metode, salah satunya adalah User-Based Collaborative Filtering yang akan digunakan dalam proyek ini. Dalam User-Based Collaborative Filtering, kesamaan atau similarity antar pengguna diukur berdasarkan riwayat interaksi mereka dengan item atau produk, di mana model mempelajari pola preferensi pengguna terhadap item berdasarkan kesamaan preferensi dengan pengguna lain.
+
+Sebelum membagi data menjadi data training dan testing, kita akan melakukan pengacakan menggunakan metode sample. Setelah data terbagi menjadi data train dan test dengan feature independen (x) dan dependen (y) terpisah, kita akan membangun class RecommendationNet untuk memprediksi skor kecocokan antara pengguna dan restoran menggunakan teknik embedding. Model ini akan digunakan dalam sistem rekomendasi dan menggunakan Binary Crossentropy sebagai metode perhitungan loss function, SGD (Stochastic Gradient Descent) sebagai optimizer, serta root mean squared error (RMSE) sebagai metrik evaluasi.
+
+Setelah proses pelatihan model selesai, kita akan menggunakan model yang telah dibuat sebelumnya dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan yang sesuai dengan preferensi pengguna. Proses ini akan diuji pada salah satu pengguna dengan memberikan data input yang mencakup preferensi makanan atau item lainnya yang disukai atau telah diakses sebelumnya oleh pengguna tersebut. Dengan menggunakan model Collaborative Filtering, rekomendasi makanan akan disesuaikan dengan preferensi yang mirip dari pengguna lain yang memiliki riwayat interaksi serupa dengan makanan yang dipilih oleh pengguna yang diuji. Hal ini memungkinkan sistem untuk merekomendasikan makanan yang memiliki kesamaan karakteristik atau preferensi dengan makanan yang telah disukai atau diakses sebelumnya oleh pengguna tersebut.
+
+
 Tahapan ini membahas mengenai model sisten rekomendasi yang Anda buat untuk menyelesaikan permasalahan. Sajikan top-N recommendation sebagai output.
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
