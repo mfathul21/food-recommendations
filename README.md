@@ -12,41 +12,42 @@ Selain meningkatkan kepuasan pelanggan, implementasi sistem rekomendasi makanan 
 
 ## Business Understanding
 
-Pada bagian ini, Anda perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
-
 ### Problem Statements
 
-Menjelaskan pernyataan masalah:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+Berdasarkan kondisi yang telah diuraikan sebelumnya, perusahaan akan mengembangkan sebuah sistem rekomendasi makanan untuk pelanggan secara terpersonalisasi, untuk menjawab permasalahan berikut.
+
+- Berdasarkan data pelanggan, bagaimana membuat sistem rekomendasi yang dipersonalisasi dengan teknik content-based filtering?
+- Dengan data rating yang Anda miliki, bagaimana restoran dapat merekomendasikan makanan lain yang mungkin disukai dan belum pernah dipesan oleh pelanggan?
 
 ### Goals
 
-Menjelaskan tujuan proyek yang menjawab pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+Untuk menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+- Menghasilkan sejumlah rekomendasi makanan yang dipersonalisasi untuk pelanggan dengan teknik content-based filtering.
+- Menghasilkan sejumlah rekomendasi makanan yang sesuai dengan preferensi pelanggan dan belum pernah dikunjungi sebelumnya dengan teknik collaborative filtering.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Approach” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
+### Solution statements
 
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution approach (algoritma atau pendekatan sistem rekomendasi).
+Untuk mencapai tujuan tersebut, langkah-langkah berikut akan diambil:
+
+1. **Data Understanding:** Data Understanding adalah tahap awal proyek untuk memahami data yang dimiliki. Dalam kasus ini, kita memiliki 2 file terpisah mengenai deskripsi makanan dan rating.
+2. **Univariate Exploratory Data Analysis:** Pada tahap ini, dilakukan analisis dan eksplorasi setiap variabel pada data. Jika dibutuhkan, dapat melakukan eksplorasi lebih lanjut mengenai keterkaitan antara satu variabel dengan variabel lainnya.
+3. **Data Preparation:** Pada tahap ini, dilakukan proses mempersiapkan data dan melakukan beberapa teknik seperti mengatasi missing value, data duplikat, dan data yang kotor. 
+4. **Model Development dengan Content Based Filtering:** Pada tahap ini, akan dikembangkan sistem rekomendasi menggunakan teknik content-based filtering. Teknik ini merekomendasikan item berdasarkan kesamaan dengan item yang disukai pengguna berdasarkan fitur atau deskripsi item tersebut. Representasi fitur frekuensi kemunculan dari setiap kategori atau deskripsi makanan akan dihasilkan menggunakan Count Vectorizer, dan tingkat kesamaan antara makanan dihitung dengan menggunakan cosine similarity. Berdasarkan kesamaan ini, akan dibuat rekomendasi makanan untuk pelanggan.
+5. **Model Development dengan Collaborative Filtering:** Pada tahap ini, sistem merekomendasikan sejumlah makanan berdasarkan rating yang telah diberikan sebelumnya. Dari data rating pengguna, kita akan mengidentifikasi makanan-makanan yang mirip dan belum pernah dipesan oleh pengguna untuk direkomendasikan.
 
 ## Data Understanding
-Paragraf awal bagian ini menjelaskan informasi mengenai jumlah data, kondisi data, dan informasi mengenai data yang digunakan. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+Data yang digunakan pada proyek kali ini adalah "Food Recomendation System" yang diunduh dari <a href="https://www.kaggle.com/datasets/schemersays/food-recommendation-system">Kaggle API</a>. Dataset ini merepresentasikan data yang berhubungan dengan sistem rekomendasi makanan. Dua dataset disertakan dalam file dataset ini. Pertama, termasuk dataset yang terkait dengan makanan, bahan, masakan yang terlibat. Kedua, termasuk dataset dari sistem rating untuk sistem rekomendasi.
 
-Selanjutnya, uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+Dataset pertama memiliki 400 baris dengan 5 fitur, yang terdiri fitur non-numerik seperti Name, C_Type, Veg_Non, dan Describe, serta fitur numerik yaitu Food_ID. Sedangkan, untuk dataset kedua memilki 512 baris data dengan 3 fitur numerik, yaitu User_ID, Food_ID, dan Rating.
 
-Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+Variabel-variabel pada kedua datasets tersebut adalah sebagai berikut:
+- User_ID: ID unik untuk setiap pengguna atau pelanggan.
+- Food_ID: ID unik untuk setiap makanan dalam dataset.
+- C_Type: Jenis makanan yang termasuk dalam kategori tertentu, misalnya Chinese, Dessert, Indian, dll.
+- Veg_Non: Status vegetarian atau non-vegetarian dari makanan.
+- Describe: Deskripsi singkat tentang makanan, termasuk bahan utama, cita rasa, atau karakteristik lainnya.
+- Rating: Nilai rating yang diberikan oleh pengguna untuk makanan tertentu, menunjukkan seberapa disukainya makanan tersebut oleh pengguna. Dengan nilai dalam rentang 1 hingga 10, di mana nilai yang lebih tinggi menunjukkan tingkat kepuasan yang lebih tinggi.
 
 **Rubrik/Kriteria Tambahan (Opsional)**:
 - Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
