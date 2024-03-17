@@ -15,7 +15,7 @@ Selain meningkatkan kepuasan pelanggan, implementasi sistem rekomendasi makanan 
 Berdasarkan kondisi yang telah diuraikan sebelumnya, perusahaan akan mengembangkan sebuah sistem rekomendasi makanan untuk pelanggan secara terpersonalisasi, untuk menjawab permasalahan berikut.
 
 - Berdasarkan data pelanggan, bagaimana membuat sistem rekomendasi yang dipersonalisasi dengan teknik content-based filtering?
-- Dengan data rating yang Anda miliki, bagaimana restoran dapat merekomendasikan makanan lain yang mungkin disukai dan belum pernah dipesan oleh pelanggan?
+- Dengan data rating yang dimiliki, bagaimana restoran dapat merekomendasikan makanan lain yang mungkin disukai dan belum pernah dipesan oleh pelanggan?
 
 ### Goals
 
@@ -26,13 +26,7 @@ Untuk menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan ata
 
 ### Solution statements
 
-Untuk mencapai tujuan tersebut, langkah-langkah berikut akan diambil:
-
-1. **Data Understanding:** Data Understanding adalah tahap awal proyek untuk memahami data yang dimiliki. Dalam kasus ini, kita memiliki 2 file terpisah mengenai deskripsi makanan dan rating.
-2. **Univariate Exploratory Data Analysis:** Pada tahap ini, dilakukan analisis dan eksplorasi setiap variabel pada data. Jika dibutuhkan, dapat melakukan eksplorasi lebih lanjut mengenai keterkaitan antara satu variabel dengan variabel lainnya.
-3. **Data Preparation:** Pada tahap ini, dilakukan proses mempersiapkan data dan melakukan beberapa teknik seperti mengatasi missing value, data duplikat, dan data yang kotor. 
-4. **Model Development dengan Content Based Filtering:** Pada tahap ini, akan dikembangkan sistem rekomendasi menggunakan teknik content-based filtering. Teknik ini merekomendasikan item berdasarkan kesamaan dengan item yang disukai pengguna berdasarkan fitur atau deskripsi item tersebut. Representasi fitur frekuensi kemunculan dari setiap kategori atau deskripsi makanan akan dihasilkan menggunakan Count Vectorizer, dan tingkat kesamaan antara makanan dihitung dengan menggunakan cosine similarity. Berdasarkan kesamaan ini, akan dibuat rekomendasi makanan untuk pelanggan.
-5. **Model Development dengan Collaborative Filtering:** Pada tahap ini, sistem merekomendasikan sejumlah makanan berdasarkan rating yang telah diberikan sebelumnya. Dari data rating pengguna, kita akan mengidentifikasi makanan-makanan yang mirip dan belum pernah dipesan oleh pengguna untuk direkomendasikan.
+Dalam proyek ini, tujuan utamanya adalah mengembangkan sebuah sistem rekomendasi makanan yang dipersonalisasi untuk pelanggan. Teknik content-based filtering akan digunakan untuk menghasilkan rekomendasi yang disesuaikan dengan preferensi pelanggan berdasarkan data pelanggan yang ada. Selain itu, data rating yang dimiliki akan digunakan untuk merekomendasikan makanan baru yang mungkin disukai oleh pelanggan, namun belum pernah dipesan sebelumnya. Salah satu fokus utamanya adalah memastikan tingkat kesalahan model rekomendasi (RMSE) kurang dari 0.35, sehingga rekomendasi yang dihasilkan dapat menjadi panduan yang berguna bagi pelanggan dalam memilih makanan yang sesuai dengan preferensinya. Dengan menggabungkan kedua teknik filtering ini, pengalaman rekomendasi yang lebih baik dan terpersonalisasi dapat diberikan kepada pelanggan.
 
 ## Data Understanding
 Data yang digunakan pada proyek kali ini adalah "Food Recomendation System" yang diunduh dari <a href="https://www.kaggle.com/datasets/schemersays/food-recommendation-system">Kaggle API</a>. Dataset ini merepresentasikan data yang berhubungan dengan sistem rekomendasi makanan. Dua dataset disertakan dalam file dataset ini. Pertama, termasuk dataset yang terkait dengan makanan, bahan, masakan yang terlibat. Kedua, termasuk dataset dari sistem rating untuk sistem rekomendasi.
@@ -84,7 +78,7 @@ Statistika deskriptif untuk fitur non_numerik:
 
 ![c_type](https://drive.google.com/uc?id=1q_3cHovCGba3v_lP6v4DKQrQqSOOcmtQ)
 
-Tipe masakan indian, healthy food, dan dessert merupakan top 3 untuk tipe masakan pada data. Selain itu, perhatikanlah terdapat nilai yang double yaitu Korean sehingga perlu ditinjau kembali mengapa demikian pada tahap Data Preparation.
+Tipe masakan indian, healthy food, dan dessert merupakan top 3 untuk tipe masakan pada data. Selain itu, perhatikanlah terdapat nilai yang *double* yaitu Korean sehingga perlu ditinjau kembali mengapa demikian pada tahap *Data Preparation*.
 
 **Countplot of Veg_Non**
 
@@ -116,7 +110,7 @@ Persebaran rating yang diberikan oleh pengguna cukup merata untuk setiap nilai r
 ## Data Preparation
 **Laporan Data Preparation**
 
-Dalam tahap Data Preparation, beberapa teknik dan langkah-langkah dilakukan untuk membersihkan dan mempersiapkan data sebelum digunakan untuk sistem rekomendasi. Berikut adalah langkah-langkah yang dilakukan beserta penjelasannya:
+Dalam tahap *Data Preparation*, beberapa teknik dan langkah-langkah dilakukan untuk membersihkan dan mempersiapkan data sebelum digunakan untuk sistem rekomendasi. Berikut adalah langkah-langkah yang dilakukan beserta penjelasannya:
 
 1. **Membersihkan Data pada Kolom 'C_Type'**  
    - Dilakukan penghapusan spasi ekstra dalam nilai kolom 'C_Type' menggunakan fungsi `apply` dan `lambda`.
@@ -128,35 +122,35 @@ Dalam tahap Data Preparation, beberapa teknik dan langkah-langkah dilakukan untu
    - Langkah ini diperlukan karena data teks sering kali mengandung karakter non-alphabet atau berformat tidak konsisten, sehingga perlu dibersihkan dan dinormalisasi.
 
 3. **Handling Missing Values pada DataFrame 'foods'**
-   - Dilakukan pengecekan apakah terdapat nilai kosong (missing values) dalam DataFrame 'foods' menggunakan metode `.isna().any()`.
-   - Tidak ada nilai kosong yang ditemukan dalam DataFrame 'foods', sehingga tidak perlu dilakukan langkah khusus untuk menangani missing values.
+   - Dilakukan pengecekan apakah terdapat nilai kosong (*missing values*) dalam DataFrame 'foods' menggunakan metode `.isna().any()`.
+   - Tidak ada nilai kosong yang ditemukan dalam DataFrame 'foods', sehingga tidak perlu dilakukan langkah khusus untuk menangani *missing values*.
 
 4. **Handling Duplicate Data pada DataFrame 'foods'**
-   - Pengecekan dilakukan untuk melihat apakah terdapat data ganda (duplicate data) dalam DataFrame 'foods' menggunakan metode `.duplicated().any()`.
-   - Tidak ada data ganda yang ditemukan dalam DataFrame 'foods', sehingga tidak perlu dilakukan langkah khusus untuk menangani duplicate data.
+   - Pengecekan dilakukan untuk melihat apakah terdapat data ganda (*duplicate data*) dalam DataFrame 'foods' menggunakan metode `.duplicated().any()`.
+   - Tidak ada data ganda yang ditemukan dalam DataFrame 'foods', sehingga tidak perlu dilakukan langkah khusus untuk menangani *duplicate data*.
 
 5. **Handling Missing Values pada DataFrame 'ratings'**
-   - Dilakukan pengecekan apakah terdapat nilai kosong (missing values) dalam DataFrame 'ratings' menggunakan metode `.isna().any()`.
+   - Dilakukan pengecekan apakah terdapat nilai kosong (*missing values*) dalam DataFrame 'ratings' menggunakan metode `.isna().any()`.
    - Ditemukan nilai kosong pada DataFrame 'ratings', kemudian dilakukan penghapusan baris yang mengandung nilai kosong tersebut menggunakan metode `.dropna()`.
    - Setelah itu, dilakukan pengecekan ulang untuk memastikan tidak ada lagi nilai kosong dalam DataFrame 'ratings'.
 
 6. **Handling Duplicate Data pada DataFrame 'ratings'**
-   - Pengecekan dilakukan untuk melihat apakah terdapat data ganda (duplicate data) dalam DataFrame 'ratings' menggunakan metode `.duplicated().any()`.
-   - Tidak ditemukan data ganda dalam DataFrame 'ratings', sehingga tidak perlu dilakukan langkah khusus untuk menangani duplicate data.
+   - Pengecekan dilakukan untuk melihat apakah terdapat data ganda (*duplicate data*) dalam DataFrame 'ratings' menggunakan metode `.duplicated().any()`.
+   - Tidak ditemukan data ganda dalam DataFrame 'ratings', sehingga tidak perlu dilakukan langkah khusus untuk menangani *duplicate data*.
 
 7. **Konversi Tipe Data Kolom 'User_ID' dan 'Food_ID' pada DataFrame 'ratings'**
-   - Dilakukan konversi tipe data kolom 'User_ID' dan 'Food_ID' pada DataFrame 'ratings' menjadi tipe data integer menggunakan metode `.astype(int)`.
+   - Dilakukan konversi tipe data kolom 'User_ID' dan 'Food_ID' pada DataFrame 'ratings' menjadi tipe data *integer* menggunakan metode `.astype(int)`.
    - Langkah ini diperlukan agar data pada kolom 'User_ID' dan 'Food_ID' dapat diproses dengan benar dalam analisis selanjutnya.
 
-Dengan melakukan langkah-langkah di atas, data telah dipersiapkan dengan baik dan siap untuk digunakan dalam tahap modelling. Langkah-langkah tersebut diperlukan untuk memastikan kualitas dan konsistensi data sebelum dilakukan pengembangan model.
+Dengan melakukan langkah-langkah di atas, data telah dipersiapkan dengan baik dan siap untuk digunakan dalam tahap *modelling*. Langkah-langkah tersebut diperlukan untuk memastikan kualitas dan konsistensi data sebelum dilakukan pengembangan model.
 
 ## Modeling
 
 ### Content Based Filtering
 
-Content-Based Recommendation memanfaatkan informasi dari beberapa item atau dataset untuk merekomendasikan item yang relevan kepada pengguna berdasarkan informasi yang telah digunakan sebelumnya. Tujuan dari rekomendasi berbasis konten adalah untuk memprediksi kesamaan antara sejumlah informasi yang diberikan oleh pengguna. **Content-Based Recommendation memiliki keunggulan dalam personalisasi rekomendasi berdasarkan preferensi pengguna namun memiliki keterbatasan dalam keragaman rekomendasi karena cenderung merekomendasikan item yang mirip dengan yang digunakan pengguna sebelumnya**.
+*Content-Based Recommendation* memanfaatkan informasi dari beberapa item atau dataset untuk merekomendasikan item yang relevan kepada pengguna berdasarkan informasi yang telah digunakan sebelumnya. Tujuan dari rekomendasi berbasis konten adalah untuk memprediksi kesamaan antara sejumlah informasi yang diberikan oleh pengguna. ***Content-Based Recommendation* memiliki keunggulan dalam personalisasi rekomendasi berdasarkan preferensi pengguna namun memiliki keterbatasan dalam keragaman rekomendasi karena cenderung merekomendasikan item yang mirip dengan yang digunakan pengguna sebelumnya**.
 
-Pada tahap model, kami menggunakan CountVectorizer untuk mengubah data teks menjadi representasi numerik dengan menghitung frekuensi kemunculan kata-kata di setiap dokumen. Bobot kata-kata dihitung berdasarkan frekuensi kemunculannya di setiap dokumen. Selanjutnya, kami mendefinisikan fungsi untuk sistem rekomendasi makanan dan menggunakan representasi numerik dari CountVectorizer serta menghitung kedekatan fitur menggunakan Cosine Similarity. Proses ini akan diuji pada salah satu makanan untuk menghasilkan rekomendasi yang sesuai.
+Pada tahap model, menggunakan *CountVectorizer* untuk mengubah data teks menjadi representasi numerik dengan menghitung frekuensi kemunculan kata-kata di setiap dokumen. Bobot kata-kata dihitung berdasarkan frekuensi kemunculannya di setiap dokumen. Selanjutnya, dengan mendefinisikan fungsi untuk sistem rekomendasi makanan dan menggunakan representasi numerik dari *CountVectorizer* serta menghitung kedekatan fitur menggunakan *Cosine Similarity*. Proses ini akan diuji pada salah satu makanan untuk menghasilkan rekomendasi yang sesuai.
 
 | Food_ID | Name                      | C_Type  | Veg_Non | Describe                                  | soup                                               |
 |---------|---------------------------|---------|---------|-------------------------------------------|----------------------------------------------------|
@@ -175,13 +169,13 @@ dengan, `food_recommendations('eggless coffee cupcakes')`
 
 ### Collaborative Filtering
 
-Collaborative Filtering menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. **Collaborative Filtering, seperti yang digunakan dalam proyek ini, menawarkan rekomendasi personalisasi tinggi berdasarkan preferensi pengguna sebelumnya, tetapi dapat mengalami kesulitan saat menghadapi pengguna atau item baru dan cenderung merekomendasikan item yang mirip secara berulang**. Dalam proyek ini, kita akan menggunakan metode User-Based Collaborative Filtering. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik embedding. Model ini akan digunakan dalam sistem rekomendasi dengan menggunakan Binary Crossentropy, SGD (Stochastic Gradient Descent) sebagai optimizer, dan RMSE sebagai metrik evaluasi.
+*Collaborative Filtering* menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. ***Collaborative Filtering*, seperti yang digunakan dalam proyek ini, menawarkan rekomendasi personalisasi tinggi berdasarkan preferensi pengguna sebelumnya, tetapi dapat mengalami kesulitan saat menghadapi pengguna atau item baru dan cenderung merekomendasikan item yang mirip secara berulang**. Dalam proyek ini, akan menggunakan metode *User-Based Collaborative Filtering*. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik *embedding*. Model ini akan digunakan dalam sistem rekomendasi dengan menggunakan *Binary Crossentropy* sebagai *loss*, SGD (*Stochastic Gradient Descent*) sebagai *optimizer*, dan RMSE sebagai *metric evaluation*.
 
-Setelah pelatihan model selesai, model akan digunakan dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan sesuai preferensi pengguna. Proses ini diuji pada pengguna dengan data input yang mencakup preferensi makanan atau item lainnya yang disukai. Dengan menggunakan Collaborative Filtering, rekomendasi makanan disesuaikan dengan preferensi pengguna lain yang memiliki riwayat interaksi serupa. Hal ini memungkinkan sistem merekomendasikan makanan dengan kesamaan karakteristik atau preferensi dengan makanan yang disukai sebelumnya oleh pengguna.
+Setelah pelatihan model selesai, model akan digunakan dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan sesuai preferensi pengguna. Proses ini diuji pada pengguna dengan data input yang mencakup preferensi makanan atau item lainnya yang disukai. Dengan menggunakan *Collaborative Filtering*, rekomendasi makanan disesuaikan dengan preferensi pengguna lain yang memiliki riwayat interaksi serupa. Hal ini memungkinkan sistem merekomendasikan makanan dengan kesamaan karakteristik atau preferensi dengan makanan yang disukai sebelumnya oleh pengguna.
 
 **Showing recommendations for users: 67**
 
-Food with high ratings from user
+**Food with high ratings from user**
 
 | No. | Name                                | C_Type            | Veg_Non                  |
 |-----|-------------------------------------|-------------------|--------------------------|
@@ -209,9 +203,7 @@ Food with high ratings from user
 
 ## Evaluation
 
-Dalam proyek ini, kami menggunakan Root Mean Squared Error (RMSE) sebagai metrik evaluasi untuk mengevaluasi kinerja model rekomendasi kami. RMSE adalah metrik yang cocok digunakan untuk masalah prediksi, khususnya saat kita ingin mengukur seberapa dekat prediksi model dengan nilai sebenarnya.
-
-RMSE dihitung dengan mengambil akar kuadrat dari rata-rata dari selisih kuadrat antara nilai prediksi dan nilai sebenarnya. Formulanya adalah sebagai berikut:
+Dalam proyek ini, dengan menggunakan *Root Mean Squared Error* (RMSE) sebagai metrik evaluasi untuk mengevaluasi kinerja model rekomendasi. RMSE adalah metrik yang cocok digunakan untuk masalah prediksi, khususnya saat ingin mengukur seberapa dekat prediksi model dengan nilai sebenarnya. RMSE dihitung dengan mengambil akar kuadrat dari rata-rata dari selisih kuadrat antara nilai prediksi dan nilai sebenarnya. Formulanya adalah sebagai berikut:
 
 $$
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
@@ -223,13 +215,13 @@ di mana:
 - $\hat{y}_i$ adalah nilai prediksi dari sampel ke-i.
 
 
-Dengan menggunakan metrik RMSE, kami dapat mengukur seberapa baik model kami dalam memprediksi nilai rating yang sebenarnya oleh pengguna. Semakin rendah nilai RMSE, semakin baik model kami dalam memprediksi nilai rating. Hal ini mengindikasikan bahwa rekomendasi yang dihasilkan oleh sistem akan lebih akurat dan sesuai dengan preferensi pengguna. Oleh karena itu, kami mengevaluasi kinerja model kami berdasarkan nilai RMSE yang dihasilkan pada data uji.
+Dengan menggunakan metrik RMSE, kemampuan model dalam memprediksi nilai rating yang sebenarnya oleh pengguna dapat diukur. Semakin rendah nilai RMSE, semakin baik model dalam memprediksi nilai rating, yang mengindikasikan bahwa rekomendasi yang dihasilkan oleh sistem akan lebih akurat dan sesuai dengan preferensi pengguna. Oleh karena itu, kinerja model dievaluasi berdasarkan nilai RMSE yang dihasilkan pada data uji.
 
 **RMSE Training & Validation**
 
 ![metric_evaluasi](https://drive.google.com/uc?id=1YVSrkAIt80tzW2FDhtcGj7NNBK49rAK6)
 
-Berdasarkan hasil training model dengan learning rate 0.005, ukuran embedding 100, batch size 16, dan epoch 100, diperoleh nilai error sekitar 0.30 pada data training, sedangkan pada data validasi sebesar 0.32. Nilai tersebut cukup bagus untuk sistem rekomendasi. Dengan nilai RMSE yang rendah, kami dapat menyimpulkan bahwa model rekomendasi kami mampu memberikan rekomendasi dengan akurasi yang baik, yang sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
+Berdasarkan hasil training model dengan learning rate 0.005, ukuran embedding 100, batch size 16, dan epoch 100, diperoleh nilai error sekitar 0.30 pada data training, sedangkan pada data validasi sebesar 0.32. Nilai tersebut dianggap cukup bagus untuk sistem rekomendasi. Dengan nilai RMSE yang rendah, dapat disimpulkan bahwa model rekomendasi mampu memberikan rekomendasi dengan akurasi yang baik, sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
 
 ## References
 
