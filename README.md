@@ -146,17 +146,20 @@ Dengan melakukan langkah-langkah di atas, data telah dipersiapkan dengan baik da
 
 ## Modeling
 
-### Content Based Filtering
+### Content-Based Filtering
 
 *Content-Based Recommendation* memanfaatkan informasi dari beberapa item atau dataset untuk merekomendasikan item yang relevan kepada pengguna berdasarkan informasi yang telah digunakan sebelumnya. Tujuan dari rekomendasi berbasis konten adalah untuk memprediksi kesamaan antara sejumlah informasi yang diberikan oleh pengguna. ***Content-Based Recommendation* memiliki keunggulan dalam personalisasi rekomendasi berdasarkan preferensi pengguna namun memiliki keterbatasan dalam keragaman rekomendasi karena cenderung merekomendasikan item yang mirip dengan yang digunakan pengguna sebelumnya**.
 
-Pada tahap model, menggunakan *CountVectorizer* untuk mengubah data teks menjadi representasi numerik dengan menghitung frekuensi kemunculan kata-kata di setiap dokumen. Bobot kata-kata dihitung berdasarkan frekuensi kemunculannya di setiap dokumen. Selanjutnya, dengan mendefinisikan fungsi untuk sistem rekomendasi makanan dan menggunakan representasi numerik dari *CountVectorizer* serta menghitung kedekatan fitur menggunakan *Cosine Similarity*. Proses ini akan diuji pada salah satu makanan untuk menghasilkan rekomendasi yang sesuai.
+Dengan menggunakan *CountVectorizer* untuk mengubah data teks menjadi representasi numerik dengan menghitung frekuensi kemunculan kata-kata di setiap dokumen. Bobot kata-kata dihitung berdasarkan frekuensi kemunculannya di setiap dokumen. Selanjutnya, dengan mendefinisikan fungsi untuk sistem rekomendasi makanan dan menggunakan representasi numerik dari *CountVectorizer* serta menghitung kedekatan fitur menggunakan *Cosine Similarity*. Proses ini akan diuji pada salah satu makanan untuk menghasilkan rekomendasi yang sesuai.
 
 | Food_ID | Name                      | C_Type  | Veg_Non | Describe                                  | soup                                               |
 |---------|---------------------------|---------|---------|-------------------------------------------|----------------------------------------------------|
 | 229     | eggless coffee cupcakes   | dessert | veg     | maida flour baking powder sugar cocoa powd... | dessert veg maida flour baking powder sugar... |
 
-dengan, `food_recommendations('eggless coffee cupcakes')`
+Contoh penggunaan:
+```python
+food_recommendations('eggless coffee cupcakes')
+```
 
 | No  | Name                           | C_Type   | Veg_Non |
 |-----|--------------------------------|----------|---------|
@@ -166,10 +169,11 @@ dengan, `food_recommendations('eggless coffee cupcakes')`
 | 3   | filter coffee                  | beverage | veg     |
 | 4   | double chocolate easter cookies| dessert  | veg     |
 
-
 ### Collaborative Filtering
 
-*Collaborative Filtering* menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. ***Collaborative Filtering*, seperti yang digunakan dalam proyek ini, menawarkan rekomendasi personalisasi tinggi berdasarkan preferensi pengguna sebelumnya, tetapi dapat mengalami kesulitan saat menghadapi pengguna atau item baru dan cenderung merekomendasikan item yang mirip secara berulang**. Dalam proyek ini, akan menggunakan metode *User-Based Collaborative Filtering*. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik *embedding*. Model ini akan digunakan dalam sistem rekomendasi dengan menggunakan *Binary Crossentropy* sebagai *loss*, SGD (*Stochastic Gradient Descent*) sebagai *optimizer*, dan RMSE sebagai *metric evaluation*.
+*Collaborative Filtering* menggunakan transaksi produk atau item sebagai dasar untuk memahami perilaku pengguna dan merekomendasikan item yang disukai berdasarkan kesamaan preferensi dengan pengguna lain. ***Collaborative Filtering*, seperti yang digunakan dalam proyek ini, menawarkan rekomendasi personalisasi tinggi berdasarkan preferensi pengguna sebelumnya, tetapi dapat mengalami kesulitan saat menghadapi pengguna atau item baru dan cenderung merekomendasikan item yang mirip secara berulang**.
+
+Dalam proyek ini, akan menggunakan metode *User-Based Collaborative Filtering*. Sebelum membagi data menjadi data training dan testing, data akan diacak. Setelah pembagian data, akan dibangun model RecommendationNet untuk memprediksi skor kesesuaian antara pengguna dan restoran menggunakan teknik *embedding*. Model ini digunakan dalam sistem rekomendasi dengan menggunakan *Binary Crossentropy* sebagai *loss*, SGD (*Stochastic Gradient Descent*) sebagai *optimizer*, dan RMSE sebagai *metric evaluation*.
 
 Setelah pelatihan model selesai, model akan digunakan dalam sistem rekomendasi untuk menghasilkan rekomendasi makanan sesuai preferensi pengguna. Proses ini diuji pada pengguna dengan data input yang mencakup preferensi makanan atau item lainnya yang disukai. Dengan menggunakan *Collaborative Filtering*, rekomendasi makanan disesuaikan dengan preferensi pengguna lain yang memiliki riwayat interaksi serupa. Hal ini memungkinkan sistem merekomendasikan makanan dengan kesamaan karakteristik atau preferensi dengan makanan yang disukai sebelumnya oleh pengguna.
 
@@ -200,7 +204,6 @@ Setelah pelatihan model selesai, model akan digunakan dalam sistem rekomendasi u
 | 9   | Grilled Sweet Prawn                                              | Chinese          | Non-Vegetarian           |
 | 10  | Pho Tai Rare Beef                                                | Vietnamese       | Non-Vegetarian           |
 
-
 ## Evaluation
 
 Dalam proyek ini, dengan menggunakan *Root Mean Squared Error* (RMSE) sebagai metrik evaluasi untuk mengevaluasi kinerja model rekomendasi. RMSE adalah metrik yang cocok digunakan untuk masalah prediksi, khususnya saat ingin mengukur seberapa dekat prediksi model dengan nilai sebenarnya. RMSE dihitung dengan mengambil akar kuadrat dari rata-rata dari selisih kuadrat antara nilai prediksi dan nilai sebenarnya. Formulanya adalah sebagai berikut:
@@ -221,7 +224,7 @@ Dengan menggunakan metrik RMSE, kemampuan model dalam memprediksi nilai rating y
 
 Gambar 4. Plot of RMSE Training & Validation
 
-Berdasarkan hasil training model dengan learning rate 0.005, ukuran embedding 100, batch size 16, dan epoch 100, diperoleh nilai error sekitar 0.30 pada data training, sedangkan pada data validasi sebesar 0.32. Nilai tersebut dianggap cukup bagus untuk sistem rekomendasi. Dengan nilai RMSE yang rendah, dapat disimpulkan bahwa model rekomendasi mampu memberikan rekomendasi dengan akurasi yang baik, sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
+Berdasarkan hasil *training* model dengan *learning rate* 0.005, ukuran *embedding* 100, *batch size* 16, dan *epoch* 100, diperoleh nilai *error* sekitar 0.30 pada data *train*, sedangkan pada data validasi sebesar 0.32. Nilai tersebut dianggap cukup bagus untuk sistem rekomendasi. Dengan memperhitungkan hasil evaluasi ini, dapat disimpulkan bahwa model rekomendasi dengan metode *Collaborative Filtering* dan teknik *embedding* telah berhasil memenuhi tujuan proyek dengan mencapai nilai RMSE di bawah 35%. Oleh karena itu, proyek ini dapat dikatakan berhasil dalam memberikan rekomendasi dengan akurasi yang baik, sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
 
 ## References
 
