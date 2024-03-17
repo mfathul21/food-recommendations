@@ -22,7 +22,7 @@ Berdasarkan kondisi yang telah diuraikan sebelumnya, perusahaan akan mengembangk
 Untuk menjawab pertanyaan tersebut, buatlah sistem rekomendasi dengan tujuan atau goals sebagai berikut:
 
 - Menghasilkan sejumlah rekomendasi makanan yang dipersonalisasi untuk pelanggan dengan teknik content-based filtering.
-- Menghasilkan sejumlah rekomendasi makanan yang sesuai dengan preferensi pelanggan dan belum pernah dikunjungi sebelumnya dengan teknik collaborative filtering dengan tingkat kesalahan yang rendah (RMSE kurang dari 0.35).
+- Menghasilkan sejumlah rekomendasi makanan yang sesuai dengan preferensi pelanggan dan belum pernah dikunjungi sebelumnya dengan menggunakan teknik collaborative filtering, dengan tingkat kesalahan yang rendah (RMSE kurang dari 0.35).
 
 ### Solution statements
 
@@ -230,7 +230,6 @@ Dengan menggunakan metrik RMSE, kami dapat mengukur seberapa baik model kami dal
 ![metric_evaluasi](https://drive.google.com/uc?id=1YVSrkAIt80tzW2FDhtcGj7NNBK49rAK6)
 
 Berdasarkan hasil training model dengan learning rate 0.005, ukuran embedding 100, batch size 16, dan epoch 100, diperoleh nilai error sekitar 0.30 pada data training, sedangkan pada data validasi sebesar 0.32. Nilai tersebut cukup bagus untuk sistem rekomendasi. Dengan nilai RMSE yang rendah, kami dapat menyimpulkan bahwa model rekomendasi kami mampu memberikan rekomendasi dengan akurasi yang baik, yang sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
-
 
 ## References
 
