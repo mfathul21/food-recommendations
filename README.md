@@ -49,8 +49,30 @@ Variabel-variabel pada kedua datasets tersebut adalah sebagai berikut:
 - Describe: Deskripsi singkat tentang makanan, termasuk bahan utama, cita rasa, atau karakteristik lainnya.
 - Rating: Nilai rating yang diberikan oleh pengguna untuk makanan tertentu, menunjukkan seberapa disukainya makanan tersebut oleh pengguna. Dengan nilai dalam rentang 1 hingga 10, di mana nilai yang lebih tinggi menunjukkan tingkat kepuasan yang lebih tinggi.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data beserta insight atau exploratory data analysis.
++-----------+----------+--------+------------------------------------------------+
+| Food_ID   | User_ID  | Rating |                                               |
++-----------+----------+--------+------------------------------------------------+
+| count     | 400.000  | 400.000| 400.000                                        |
+| mean      | 200.500  | 200.500| 200.500                                        |
+| std       | 115.614  | 115.614| 115.614                                        |
+| min       | 1.000    | 1.000  | 1.000                                          |
+| 25%       | 100.750  | 100.750| 100.750                                        |
+| 50%       | 200.500  | 200.500| 200.500                                        |
+| 75%       | 300.250  | 300.250| 300.250                                        |
+| max       | 400.000  | 400.000| 400.000                                        |
++-----------+----------+--------+------------------------------------------------+
+
++-----------+-----------+---------+------------------------------------------------+
+| Name      | C_Type    | Veg_Non | Describe                                       |
++-----------+-----------+---------+------------------------------------------------+
+| count     | 400       | 400     | 400                                            |
+| unique    | 400       | 16      | 2                                              |
+| top       | summer    | Indian  | veg                                            |
+|           | squash    |         | riety of rice.                                 |
+|           | salad     |         |                                                |
+| freq      | 1         | 88      | 238                                            |
++-----------+-----------+---------+------------------------------------------------+
+
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
