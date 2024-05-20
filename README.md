@@ -236,7 +236,7 @@ Dengan menggunakan metrik RMSE, kemampuan model dalam memprediksi nilai rating y
 
 Gambar 4. Plot of RMSE Training & Validation
 
-Berdasarkan hasil *training* model dengan *learning rate* 0.005, ukuran *embedding* 100, *batch size* 16, dan *epoch* 100, diperoleh nilai *error* sekitar 0.30 pada data *train*, sedangkan pada data validasi sebesar 0.32. Nilai tersebut dianggap cukup bagus untuk sistem rekomendasi. Dengan memperhitungkan hasil evaluasi ini, dapat disimpulkan bahwa model rekomendasi dengan teknik *Collaborative Filtering* telah berhasil memenuhi tujuan proyek dengan mencapai nilai RMSE di bawah 35%. Oleh karena itu, proyek ini dapat dikatakan berhasil dalam memberikan rekomendasi dengan akurasi yang baik, sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
+Berdasarkan hasil *training* model dengan *learning rate* 0.005, ukuran *embedding* 100, *batch size* 16, dan *epoch* 100, diperoleh nilai *error* sekitar 0.30 pada data *train*, sedangkan pada data validasi sebesar 0.32. Nilai tersebut dianggap cukup bagus untuk sistem rekomendasi. Dengan memperhitungkan hasil evaluasi ini, dapat disimpulkan bahwa model rekomendasi dengan teknik *Collaborative Filtering* telah berhasil memenuhi tujuan proyek dengan mencapai nilai RMSE di bawah 0.35. Oleh karena itu, proyek ini dapat dikatakan berhasil dalam memberikan rekomendasi dengan akurasi yang baik, sesuai dengan preferensi pengguna berdasarkan data yang diberikan.
 
 ## References
 
